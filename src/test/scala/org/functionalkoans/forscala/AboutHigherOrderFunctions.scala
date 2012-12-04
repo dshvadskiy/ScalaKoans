@@ -9,7 +9,7 @@ class AboutHigherOrderFunctions extends KoanSuite {
       x: Int => x + 1
     }
     def result = List(1, 2, 3) map lambda
-    result should be(__)
+    result should be(List(2, 3, 4))
   }
 
   koan("Meet closure. Closure is any function that closes over the environment") {
@@ -18,10 +18,10 @@ class AboutHigherOrderFunctions extends KoanSuite {
       x: Int => x + incrementer
     }
     val result = List(1, 2, 3) map closure
-    result should be(__)
+    result should be(List(2, 3, 4))
     incrementer = 2
     val result1 = List(1, 2, 3) map closure
-    result1 should be(__)
+    result1 should be(List(3, 4, 5))
   }
 
   koan("function returning another function") {
@@ -30,14 +30,14 @@ class AboutHigherOrderFunctions extends KoanSuite {
         def apply(y: Int): Int = x + y
       }
     }
-    addWithoutSyntaxSugar(1).isInstanceOf[Function1[_,_]] should be(__)
+    addWithoutSyntaxSugar(1).isInstanceOf[Function1[_,_]] should be(true)
 
     def add(x: Int) = (y: Int) => x + y
-    add(1).isInstanceOf[Function1[_,_]] should be(__)
-    add(2)(3) should be(__)
+    add(1).isInstanceOf[Function1[_,_]] should be(true)
+    add(2)(3) should be(5)
 
     def fiveAdder = add(5)
-    fiveAdder(5) should be(__)
+    fiveAdder(5) should be(10)
   }
 
 
@@ -47,13 +47,13 @@ class AboutHigherOrderFunctions extends KoanSuite {
       xs map sideEffect
     }
 
-    makeUpper(List("abc", "xyz", "123")) should be(__)
+    makeUpper(List("abc", "xyz", "123")) should be(List("ABC", "XYZ", "123"))
 
     makeWhatEverYouLike(List("ABC", "XYZ", "123"), {
       x => x.toLowerCase
-    }) should be(__)
+    }) should be(List("abc", "xyz", "123"))
     //using it inline
-    List("Scala", "Erlang", "Clojure") map {_.length} should be(__)
+    List("Scala", "Erlang", "Clojure") map {_.length} should be(List(5,6,7))
   }
 
   koan("Currying is a technique to transform function with multiple parameters to function with one parameter") {

@@ -49,20 +49,20 @@ class AboutEmptyValues extends KoanSuite {
 
   test("None can be used with Option instead of null references") {
     val optional: Option[String] = None
-    assert(optional.isEmpty === __)
-    assert(optional === __)
+    assert(optional.isEmpty === true)
+    assert(optional === None)
   }
 
   test("Some is the opposite of None for Option types") {
     val optional: Option[String] = Some("Some Value")
-    assert((optional == None) === __, "Some(value) should not equal None")
-    assert(optional.isEmpty === __, "Some(value) should not be empty")
+    assert((optional == None) === false, "Some(value) should not equal None")
+    assert(optional.isEmpty === false, "Some(value) should not be empty")
   }
 
   test("Option.getOrElse can be used to provide a default in the case of None") {
     val optional: Option[String] = Some("Some Value")
     val optional2: Option[String] = None
-    assert(optional.getOrElse("No Value") === __, "Should return the value in the option")
-    assert(optional2.getOrElse("No Value") === __, "Should return the specified default value")
+    assert(optional.getOrElse("No Value") === "Some Value", "Should return the value in the option")
+    assert(optional2.getOrElse("No Value") === "No Value", "Should return the specified default value")
   }
 }
